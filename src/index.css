@@ -1,8 +1,22 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,3 +25,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --primaryBg: hsl(39, 100%, 50%);
+  --primaryBgHover: hsl(39, 92%, 56%);
+  --primaryBgFocus: hsl(39, 96%, 63%);
+
+  --buttonBg: hsl(328, 100%, 54%);
+  --buttonShadow: hsl(328, 100%, 45%);
+  --buttonBgHover: hsl(328, 88%, 60%);
+  --buttonBgFocus: hsl(328, 85%, 62%);
+  --buttonBgActive: hsl(328, 78%, 60%);
+}
+
+/* #root {
+  display: grid;
+  place-items: center;
+} */

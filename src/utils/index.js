@@ -27,10 +27,8 @@ export const getOnlyGoat = (doors, choice) => {
 
 export const getHostChoice = (doors, playerChoice) => {
   if (doors[playerChoice] === 'goat') {
-    // console.log('getOnlyGoat');
     return getOnlyGoat(doors, playerChoice);
   } else {
-    // console.log('randomHostChoice');
     return randomHostChoice(doors);
   }
 };

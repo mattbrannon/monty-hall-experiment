@@ -30,12 +30,17 @@ code {
   --primaryBg: hsl(39, 100%, 50%);
   --primaryBgHover: hsl(39, 92%, 56%);
   --primaryBgFocus: hsl(39, 96%, 63%);
+  --o: hsl(33, 100%, 50%);
 
   --buttonBg: hsl(328, 100%, 54%);
   --buttonShadow: hsl(328, 100%, 45%);
   --buttonBgHover: hsl(328, 88%, 60%);
   --buttonBgFocus: hsl(328, 85%, 62%);
   --buttonBgActive: hsl(328, 78%, 60%);
+
+  --doorBg: hsl(30, 100%, 50%);
+
+  --k: hsl(30, 55%, 14%);
 }
 
 /* #root {

@@ -1,19 +1,21 @@
 import styled from 'styled-components/macro';
 
 export default function Button({ children, ...props }) {
+  // handlePlayerChoice = () => {};
+
   return (
     <>
-      <Wrapper>
-        <InnerButton>{children}</InnerButton>
+      <Wrapper {...props}>
+        <InnerButton {...props}>{children}</InnerButton>
       </Wrapper>
     </>
   );
 }
 
-export function InvertedButton({ children, ...props }) {
+export function StartButton({ children, ...props }) {
   return (
-    <InvertedWrapper>
-      <InvertedInnerButton>{children}</InvertedInnerButton>
+    <InvertedWrapper {...props}>
+      <InvertedInnerButton {...props}>{children}</InvertedInnerButton>
     </InvertedWrapper>
   );
 }
@@ -68,6 +70,9 @@ const InvertedWrapper = styled(Wrapper)`
     box-shadow: 0 0 0 1px var(--buttonShadow);
     background: deeppink;
   }
+  /* visibility: ${(p) => (p.isNewGame ? 'visible' : 'hidden')}; */
+  opacity: ${(p) => (p.isNewGame ? '100%' : 0)};
+  transition: opacity 0.15s ease-in-out;
 `;
 
 const InvertedInnerButton = styled(InnerButton)`

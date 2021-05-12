@@ -1,20 +1,21 @@
 import styled from 'styled-components/macro';
 
-export default function Scoreboard() {
+export default function Scoreboard({ score }) {
+  const { win, lose, total } = score;
   return (
     <Container className="container">
       <Wrapper className="wrapper">
         <Box id="won" className="box">
           <Strong>Win</Strong>
-          <Content className="content">0</Content>
+          <Content className="content">{win}</Content>
         </Box>
         <Total id="total" className="box">
           <Strong>Total</Strong>
-          <Content className="content">0</Content>
+          <Content className="content">{total}</Content>
         </Total>
         <Box id="lost" className="box">
           <Strong>Lose</Strong>
-          <Content className="content">0</Content>
+          <Content className="content">{lose}</Content>
         </Box>
       </Wrapper>
     </Container>
@@ -22,7 +23,7 @@ export default function Scoreboard() {
 }
 
 const Container = styled.section`
-  padding-top: 4rem;
+  padding-top: 64px;
 `;
 
 const Wrapper = styled.div`

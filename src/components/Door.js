@@ -1,13 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 
 export default function FancyDoor({ children, ...props }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    const { index, hostChoice, playerChoiceIndex, count, isEndGame } =
+      props;
+    if (index === hostChoice && hostChoice !== null) {
+      setIsOpen(true);
+    }
+
+    if (index === playerChoiceIndex && count < 2) {
+      setIsSelected(true);
+    }
+
+    if (isEndGame) {
+      console.log('end game');
+      setIsOpen(false);
+      setIsSelected(false);
+    }
+  }, [isOpen, props]);
 
   return (
     <DoorWrapper>
-      <Door isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+      <Door {...props} isSelected={isSelected} isOpen={isOpen}>
         <DoorNumber>{children}</DoorNumber>
+        {props.door}
       </Door>
     </DoorWrapper>
   );
@@ -16,7 +36,7 @@ export default function FancyDoor({ children, ...props }) {
 const DoorNumber = styled.div`
   position: absolute;
   color: gold;
-  font-size: 64px;
+  font-size: ${64 / 16}rem;
   text-shadow: 0 0 5px black;
   display: grid;
   place-items: center;
@@ -32,18 +52,23 @@ const DoorWrapper = styled.div`
   height: 300px;
 `;
 
+// const doorOpen = styled
+
 const Door = styled.div`
-  background: #654321;
+  background: ${(p) =>
+    p.isSelected ? ' hsl(30, 70%, 40%)' : '#654321'};
   position: absolute;
   top: 0px;
   left: 0px;
   width: 200px;
   height: 300px;
-  box-shadow: 0 0 0 2px black;
+  outline: 2px solid hsl(30, 44%, 14%);
+  box-shadow: ${(p) =>
+    p.isSelected ? null : 'inset 0 0 3px 6px #543210'};
 
   transform-origin: left;
 
-  transition: all 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 
   /* https://codepen.io/am_eu/pen/EgZdaQ */
   transform: ${(p) =>

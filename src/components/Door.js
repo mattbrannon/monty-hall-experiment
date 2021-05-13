@@ -6,18 +6,37 @@ export default function FancyDoor({ children, ...props }) {
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    const { index, hostChoice, playerChoiceIndex, count, isEndGame } =
-      props;
+    const {
+      index,
+      hostChoice,
+      playerChoiceIndex,
+      count,
+      isEndGame,
+      finalPrize,
+      finalPrizeIndex,
+    } = props;
+
     if (index === hostChoice && hostChoice !== null) {
       setIsOpen(true);
     }
 
     if (index === playerChoiceIndex && count < 2) {
       setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+
+    if (finalPrize) {
+      if (index === finalPrizeIndex) {
+        setIsSelected(true);
+        setIsOpen(true);
+      } else {
+        setIsSelected(false);
+        setIsOpen(false);
+      }
     }
 
     if (isEndGame) {
-      console.log('end game');
       setIsOpen(false);
       setIsSelected(false);
     }

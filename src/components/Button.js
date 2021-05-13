@@ -20,6 +20,14 @@ export function StartButton({ children, ...props }) {
   );
 }
 
+export function PlayAgainButton({ children, ...props }) {
+  return (
+    <InvertedWrapper {...props}>
+      <InvertedInnerButton>{children}</InvertedInnerButton>
+    </InvertedWrapper>
+  );
+}
+
 // outer_radius = inner_radius + gap_between_elements / 2;
 const Wrapper = styled.button`
   padding: 3px 3px;
@@ -46,18 +54,14 @@ const InnerButton = styled.span`
   font-weight: 700;
   border-radius: 8px;
   border: none;
-  /* box-shadow: 0 0 0 1px darkorange; */
-  /* background: orange; */
   box-shadow: 0 0 0 1px var(--buttonShadow);
   background: deeppink;
 
   &:hover {
-    /* background: var(--primaryBgHover); */
     background: var(--buttonBgHover);
   }
   &:focus,
   &:active {
-    /* background: var(--primaryBgFocus); */
     background: var(--buttonBgFocus);
   }
 `;
@@ -65,12 +69,9 @@ const InnerButton = styled.span`
 const InvertedWrapper = styled(Wrapper)`
   &:focus,
   &:active {
-    /* box-shadow: 0 0 0 1px var(--buttonBg);
-    background: var(--primaryBgFocus); */
     box-shadow: 0 0 0 1px var(--buttonShadow);
     background: deeppink;
   }
-  /* visibility: ${(p) => (p.isNewGame ? 'visible' : 'hidden')}; */
   opacity: ${(p) => (p.isNewGame ? '100%' : 0)};
   transition: opacity 0.15s ease-in-out;
 `;
@@ -78,16 +79,12 @@ const InvertedWrapper = styled(Wrapper)`
 const InvertedInnerButton = styled(InnerButton)`
   box-shadow: 0 0 0 1px darkorange;
   background: orange;
-  /* box-shadow: 0 0 0 1px var(--buttonShadow);
-  background: deeppink; */
 
   &:hover {
     background: var(--primaryBgHover);
-    /* background: var(--buttonBgHover); */
   }
   &:focus,
   &:active {
     background: var(--primaryBgFocus);
-    /* background: var(--buttonBgFocus); */
   }
 `;

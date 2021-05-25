@@ -1,21 +1,25 @@
 import styled from 'styled-components/macro';
+import { useScore } from '../hooks/useScore';
 
-export default function Scoreboard({ score }) {
-  const { win, lose, total } = score;
+export default function Scoreboard({ playerWins }) {
+  const score = useScore(playerWins);
+
   return (
     <Container className="container">
       <Wrapper className="wrapper">
         <Box id="won" className="box">
           <Strong>Win</Strong>
-          <Content className="content">{win}</Content>
+          {/* Some weird bug is doubling the score every time so we cut in half... */}
+          {/* Seems to only happen in development... very strange */}
+          <Wins className="content">{score.wins}</Wins>
         </Box>
         <Total id="total" className="box">
           <Strong>Total</Strong>
-          <Content className="content">{total}</Content>
+          <Content className="content">{score.total}</Content>
         </Total>
         <Box id="lost" className="box">
           <Strong>Lose</Strong>
-          <Content className="content">{lose}</Content>
+          <Loss className="content">{score.losses}</Loss>
         </Box>
       </Wrapper>
     </Container>
@@ -23,12 +27,13 @@ export default function Scoreboard({ score }) {
 }
 
 const Container = styled.section`
-  padding-top: 64px;
+  padding-top: 10%;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   gap: 24px;
+  justify-content: center;
 `;
 
 const Box = styled.div`
@@ -48,6 +53,16 @@ const Box = styled.div`
 
 const Content = styled.div`
   position: absolute;
+  font-weight: 700;
+  font-size: ${21 / 16}rem;
+`;
+
+const Wins = styled(Content)`
+  color: green;
+`;
+
+const Loss = styled(Content)`
+  color: firebrick;
 `;
 
 const Strong = styled.strong`

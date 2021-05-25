@@ -16,17 +16,13 @@ export default class App extends Component {
     round1: false,
     round2: false,
     round3: false,
-    playerHasChosen: false,
     finalPrize: null,
     finalPrizeIndex: null,
     count: 0,
-    isEndGame: false,
     playerWins: null,
-    score: {
-      win: 0,
-      lose: 0,
-      total: 0,
-    },
+    reset: false,
+
+    playerWillSwap: this.playerWillSwap.bind(this),
   };
 
   componentDidMount() {
@@ -42,21 +38,15 @@ export default class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { finalPrize } = this.state;
     if (finalPrize && finalPrize !== prevState.finalPrize) {
-      const score = { ...this.state.score };
-      score.total += 1;
-      finalPrize === 'car' ? (score.win += 1) : (score.lose += 1);
       this.setState((state) => ({
         ...state,
-        score,
-        // isEndGame: true,
         playerWins: finalPrize === 'car',
         round3: true,
       }));
     }
 
     if (this.state.round1 && this.state.round1 !== prevState.round1) {
-      const doors = createDoors();
-      this.setState({ doors });
+      this.setState({ doors: createDoors() });
     }
   }
 
@@ -71,13 +61,11 @@ export default class App extends Component {
         playerChoiceIndex={this.state.playerChoiceIndex}
         playerChoice={this.state.playerChoice}
         hostChoice={this.state.hostChoice}
-        playerHasChosen={this.state.playerHasChosen}
-        // handleDoorSelection={this.handleDoorSelection}
-        hostHasRevealed={this.state.hostHasRevealed}
-        count={this.state.count}
-        isEndGame={this.state.round1}
+        round1={this.state.round1}
         finalPrize={this.state.finalPrize}
         finalPrizeIndex={this.state.finalPrizeIndex}
+        reset={this.state.reset}
+        restart={this.state.resetGame}
       >
         {i + 1}
       </Door>
@@ -85,64 +73,34 @@ export default class App extends Component {
   }
 
   displayPrompts() {
-    const { round1, round2, finalPrize, playerWins } = this.state;
-    if (round1) {
-      return <b>Please make your selection</b>;
-    } else if (round2) {
-      return (
-        <>
-          <p>
-            Monty has revealed a goat in door{' '}
-            {this.state.hostChoice + 1}
-          </p>
-          <b>Do you want to swap doors or stay?</b>
-        </>
-      );
-    } else if (finalPrize) {
-      if (playerWins) {
-        return (
-          <>
-            <b>Winner winner chicken dinner!</b>
-            <h3>Player wins a brand new {finalPrize}</h3>
-          </>
-        );
-      } else {
-        return (
-          <>
-            <b>Have fun with your {finalPrize}!</b>
-          </>
-        );
-      }
+    if (this.state.round1) {
+      return <Round1 />;
+    } else if (this.state.round2) {
+      return <Round2 state={this.state} />;
+    } else if (this.state.round3) {
+      const { finalPrize, playerWins } = this.state;
+      const props = { playerWins, finalPrize };
+      return <Round3 {...props} />;
     }
   }
 
   displayButtons = () => {
     if (this.state.isNewGame) {
       return (
-        <StartButton
-          onClick={this.startGame}
-          isNewGame={this.state.isNewGame}
-        >
+        <StartButton onClick={this.startGame} isNewGame={this.state.isNewGame}>
           Start Game
         </StartButton>
       );
     } else if (this.state.round2) {
       return (
         <>
-          <Button onClick={() => this.playerWillSwap(true)}>
-            Swap
-          </Button>
-          <Button onClick={() => this.playerWillSwap(false)}>
-            Stay
-          </Button>
+          <Button onClick={() => this.playerWillSwap(true)}>Swap</Button>
+          <Button onClick={() => this.playerWillSwap(false)}>Stay</Button>
         </>
       );
     } else if (this.state.round3) {
       return (
-        <StartButton
-          onClick={this.resetGame}
-          isNewGame={this.state.round3}
-        >
+        <StartButton onClick={this.resetGame} isNewGame={this.state.round3}>
           Play Again
         </StartButton>
       );
@@ -160,7 +118,6 @@ export default class App extends Component {
         round1: false,
         round2: true,
         hostChoice: hostChoice,
-        playerHasChosen: true,
         count: this.state.count + 1,
       });
     }
@@ -174,112 +131,129 @@ export default class App extends Component {
   };
 
   resetGame = () => {
-    this.setState((state) => {
-      return {
-        ...state,
-        playerChoice: '',
-        playerChoiceIndex: null,
-        hostChoice: null,
-        isNewGame: true,
-        round1: false,
-        round2: false,
-        round3: false,
-        playerHasChosen: false,
-        finalPrize: null,
-        finalPrizeIndex: null,
-        count: 0,
-        isEndGame: false,
-        playerWins: null,
-      };
-    });
-    this.startGame();
+    this.setState({ reset: true, playerWins: null });
+    this.restartGame();
   };
 
-  playerWillSwap = (swap) => {
+  restartGame = () => {
+    setTimeout(() => {
+      this.setState((state) => {
+        return {
+          ...state,
+          doors: [],
+          playerChoice: '',
+          playerChoiceIndex: null,
+          hostChoice: null,
+          isNewGame: true,
+          round1: false,
+          round2: false,
+          round3: false,
+          finalPrize: null,
+          finalPrizeIndex: null,
+          count: 0,
+          playerWins: null,
+          reset: false,
+        };
+      });
+      this.startGame();
+    }, 500);
+  };
+
+  playerWillSwap(swap) {
+    const { doors, playerChoice, playerChoiceIndex, hostChoice } = this.state;
+
     if (swap) {
-      const lastDoor = getFinalDoor(
-        this.state.doors,
-        this.state.playerChoiceIndex,
-        this.state.hostChoice
-      );
+      const lastDoor = getFinalDoor(doors, playerChoiceIndex, hostChoice);
       this.setState({
-        finalPrize: this.state.doors[lastDoor],
-        // isEndGame: true,
+        finalPrize: doors[lastDoor],
         round2: false,
         finalPrizeIndex: lastDoor,
       });
     } else {
       this.setState({
-        finalPrize: this.state.playerChoice,
-        // isEndGame: true,
+        finalPrize: playerChoice,
         round2: false,
-        finalPrizeIndex: this.state.playerChoiceIndex,
+        finalPrizeIndex: playerChoiceIndex,
       });
     }
-  };
+  }
 
   render() {
-    const { score } = this.state;
-
+    const { playerWins } = this.state;
     return (
       <>
-        <MaxWidthWrapper>
-          <Scoreboard score={score} />
-          <DoorSection>{this.displayDoors()}</DoorSection>
+        <>
+          <Scoreboard playerWins={playerWins} />
+          {/* <DoorSection>{this.displayDoors()}</DoorSection> */}
+          <Group>{this.displayDoors()}</Group>
           <ButtonSection>{this.displayButtons()}</ButtonSection>
-          {this.displayPrompts()}
-        </MaxWidthWrapper>
+          <PromptsSection>{this.displayPrompts()}</PromptsSection>
+          {/* <Round1 {...this.state} /> */}
+        </>
       </>
     );
   }
 }
 
-const DoorSection = styled.section`
+const Group = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
+  position: relative;
+  justify-content: center;
+  /* padding: 30px 25%; */
 `;
 
 const ButtonSection = styled.section`
   display: flex;
-  gap: 2rem;
+  justify-content: center;
   padding-top: 1rem;
+  gap: 1rem;
 `;
 
-const MaxWidthWrapper = styled.div`
-  max-width: 520px;
-  margin-right: auto;
-  margin-left: auto;
+const PromptsSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
 `;
 
-// {
-//   round2 && (
-//     <Button onClick={() => this.playerWillSwap(false)}>
-//       Stay
-//     </Button>
-//   );
-// }
+// const MaxWidthWrapper = styled.div`
+//   max-width: 520px;
+//   margin-right: auto;
+//   margin-left: auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 24px;
+// `;
 
-// <StartButton
-//   isNewGame={isNewGame}
-//   onClick={this.startGame}
-// >
-//   Start Game
-// </StartButton>;
+const Round2 = ({ state }) => {
+  return (
+    <>
+      <p>Monty has revealed a goat in door {state.hostChoice + 1}</p>
+      <b>Do you want to swap doors or stay?</b>
+    </>
+  );
+};
 
-// {
-//   finalPrize ? (
-//     <PlayAgainButton>Play Again</PlayAgainButton>
-//   ) : null;
-// }
+const Round1 = () => {
+  return <b>Please make your selection</b>;
+};
 
-// {
-//   round2 && (
-//     <Button onClick={() => this.playerWillSwap(true)}>
-//       Swap
-//     </Button>
-//   );
-// }
+const Round3 = ({ playerWins, finalPrize }) => {
+  switch (playerWins) {
+    case true:
+      return (
+        <>
+          <b>Winner winner chicken dinner!</b>
+          <h3>Player wins a brand new {finalPrize}</h3>
+        </>
+      );
+    case false:
+      return <b>Have fun with your {finalPrize}!</b>;
+    default:
+      return null;
+  }
+};

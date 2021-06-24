@@ -13,10 +13,10 @@ export default function Scoreboard({ playerWins }) {
           {/* Seems to only happen in development... very strange */}
           <Wins className="content">{score.wins}</Wins>
         </Box>
-        <Total id="total" className="box">
+        <Box id="total" className="box">
           <Strong>Total</Strong>
           <Content className="content">{score.total}</Content>
-        </Total>
+        </Box>
         <Box id="lost" className="box">
           <Strong>Lose</Strong>
           <Loss className="content">{score.losses}</Loss>
@@ -27,7 +27,8 @@ export default function Scoreboard({ playerWins }) {
 }
 
 const Container = styled.section`
-  padding-top: 10%;
+  padding-top: 128px;
+
 `;
 
 const Wrapper = styled.div`
@@ -39,16 +40,12 @@ const Wrapper = styled.div`
 const Box = styled.div`
   min-height: 50px;
   min-width: 40px;
-  /* box-shadow: 0 0 0 1px #191919; */
-  /* outline: 1px dashed black; */
   display: grid;
   place-items: center;
   font-family: system-ui;
   font-size: 0.975;
   position: relative;
-  /* background: hsl(0deg, 0%, 92%); */
   color: #191919;
-  /* border-bottom: 1px solid black; */
 `;
 
 const Content = styled.div`
@@ -72,11 +69,3 @@ const Strong = styled.strong`
   border-bottom: 1px solid black;
 `;
 
-const Total = styled(Box)`
-  /* margin-top: -80px;
-  margin-bottom: 80px; */
-`;
-
-// .wrapper div {
-//   flex: 1;
-// }

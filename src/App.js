@@ -182,14 +182,10 @@ export default class App extends Component {
     const { playerWins } = this.state;
     return (
       <>
-        <>
-          <Scoreboard playerWins={playerWins} />
-          {/* <DoorSection>{this.displayDoors()}</DoorSection> */}
-          <Group>{this.displayDoors()}</Group>
-          <ButtonSection>{this.displayButtons()}</ButtonSection>
-          <PromptsSection>{this.displayPrompts()}</PromptsSection>
-          {/* <Round1 {...this.state} /> */}
-        </>
+        <Scoreboard playerWins={playerWins} />
+        <Group>{this.displayDoors()}</Group>
+        <ButtonSection>{this.displayButtons()}</ButtonSection>
+        <PromptsSection>{this.displayPrompts()}</PromptsSection>
       </>
     );
   }
@@ -200,13 +196,12 @@ const Group = styled.div`
   gap: 3rem;
   position: relative;
   justify-content: center;
-  /* padding: 30px 25%; */
 `;
 
 const ButtonSection = styled.section`
   display: flex;
   justify-content: center;
-  padding-top: 1rem;
+  padding-top: 48px;
   gap: 1rem;
 `;
 
@@ -216,18 +211,8 @@ const PromptsSection = styled.section`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding-top: 1rem;
+  padding-top: 16px;
 `;
-
-// const MaxWidthWrapper = styled.div`
-//   max-width: 520px;
-//   margin-right: auto;
-//   margin-left: auto;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 24px;
-// `;
 
 const Round2 = ({ state }) => {
   return (

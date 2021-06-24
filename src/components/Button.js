@@ -1,8 +1,6 @@
 import styled from 'styled-components/macro';
 
 export default function Button({ children, ...props }) {
-  // handlePlayerChoice = () => {};
-
   return (
     <>
       <Wrapper {...props}>
@@ -31,7 +29,7 @@ export function PlayAgainButton({ children, ...props }) {
 // outer_radius = inner_radius + gap_between_elements / 2;
 const Wrapper = styled.button`
   padding: 3px 3px;
-  border-radius: calc((8px + 12px) / 2);
+  border-radius: 10px; //calc((8px + 12px) / 2);
   border: none;
   min-width: 140px;
 

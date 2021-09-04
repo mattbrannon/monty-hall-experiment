@@ -37,6 +37,7 @@ const Wrapper = styled.button`
   color: aliceblue;
   background: transparent;
   outline: none;
+  text-shadow: 1px 1px 2px black;
 
   &:focus,
   &:active {

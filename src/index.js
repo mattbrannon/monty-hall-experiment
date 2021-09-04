@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import VideoPlayer  from './components/VideoPlayer'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <VideoPlayer>
+      <App />
+
+    </VideoPlayer>
   </React.StrictMode>,
   document.getElementById('root')
 );

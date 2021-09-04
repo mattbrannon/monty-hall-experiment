@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: url('./assets/background.jpg');
+  /* background: url('./assets/background.jpg'); */
   background-color: #cccccc; /* Used if the image is unavailable */
   background-position: center;
   background-repeat: no-repeat;

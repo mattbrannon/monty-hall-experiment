@@ -10,4 +10,4 @@ The reason:
 - Switching doors in this scenario gives you about 66% chance of winning
 
 Try it and see for yourself. If you play 100 round of this game, on average you'll win 2 out of every 3.
-![](/public/math.gif)
+![](/public/assets/math.gif)

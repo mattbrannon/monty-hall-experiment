@@ -125,7 +125,6 @@ export default class App extends Component {
 
   startGame = () => {
     if (this.state.isNewGame || this.state.finalPrize) {
-      console.log('clicked');
       this.setState({ round1: true, isNewGame: false });
     }
   };

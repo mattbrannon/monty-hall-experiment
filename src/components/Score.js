@@ -1,6 +1,13 @@
 import styled from 'styled-components/macro';
 import { useScore } from '../hooks/useScore';
 
+/**
+ * There is a bug that causes the values of the `score` object to increment by 2 for every round of game play
+ * Even stranger is that this only occurs when running the development server.
+ * When running the app through the node/express server, the values are counted normally.
+ */
+
+
 export default function Scoreboard({ playerWins }) {
   const score = useScore(playerWins);
 
@@ -9,8 +16,6 @@ export default function Scoreboard({ playerWins }) {
       <Wrapper className="wrapper">
         <Box id="won" className="box">
           <Strong>Win</Strong>
-          {/* Some weird bug is doubling the score every time so we cut in half... */}
-          {/* Seems to only happen in development... very strange */}
           <Wins className="content">{score.wins}</Wins>
         </Box>
         <Box id="total" className="box">

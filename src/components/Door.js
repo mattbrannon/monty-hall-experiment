@@ -30,8 +30,6 @@ export default function FancyDoor({ children, ...props }) {
       setIsOpen(bool);
     };
 
-    console.log(reset);
-
     if (index === hostChoice && hostChoice !== null) {
       setIsOpen(true);
     }
@@ -65,13 +63,14 @@ export default function FancyDoor({ children, ...props }) {
 }
 
 const Prize = ({ children }) => {
-  const width = children === goat ? 150 : 250;
+  const width = children === goat ? 150 : 200;
+  const height = width === 150 ? 170 : 200;
   return (
     <PrizeWrapper>
       <img
         src={children}
         width={width}
-        height="auto"
+        height={height}
         alt={children === goat ? 'goat' : 'car'}
       />
     </PrizeWrapper>
@@ -81,7 +80,7 @@ const Prize = ({ children }) => {
 const CarPrize = () => {
   return (
     <CarWrapper>
-      <img src={car} alt="wrecked old car" width={200} height="auto" />
+      <img src={car} alt="a shiny red car" width={200} height={200} />
     </CarWrapper>
   );
 };
@@ -109,7 +108,6 @@ const PrizeWrapper = styled.div`
   position: absolute;
   top: 130px;
   left: 50px;
-  /* background: red; */
 `;
 
 const CarWrapper = styled(PrizeWrapper)`

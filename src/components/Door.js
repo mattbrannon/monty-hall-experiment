@@ -90,6 +90,9 @@ const DoorWrapper = styled.div`
   width: 200px;
   height: 300px;
   isolation: isolate;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const DoorNumber = styled.div`

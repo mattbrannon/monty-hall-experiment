@@ -34,7 +34,7 @@ const Wrapper = styled.button`
   min-width: 140px;
 
   font-family: system-ui;
-  color: aliceblue;
+  color: white;
   background: transparent;
   outline: none;
   text-shadow: 1px 1px 2px black;
@@ -43,6 +43,9 @@ const Wrapper = styled.button`
   &:active {
     box-shadow: 0 0 0 1px var(--buttonBg);
     background: var(--primaryBgFocus);
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -53,8 +56,8 @@ const InnerButton = styled.span`
   font-weight: 700;
   border-radius: 8px;
   border: none;
-  box-shadow: 0 0 0 1px var(--buttonShadow);
-  background: deeppink;
+  box-shadow: 0 0 0 1px var(--pinkShadow);
+  background: var(--buttonBg);
 
   &:hover {
     background: var(--buttonBgHover);
@@ -68,16 +71,18 @@ const InnerButton = styled.span`
 const InvertedWrapper = styled(Wrapper)`
   &:focus,
   &:active {
-    box-shadow: 0 0 0 1px var(--buttonShadow);
-    background: deeppink;
+    box-shadow: 0 0 0 1px var(--tealShadow);
+    background: var(--primaryBg);
   }
   opacity: ${(p) => (p.isNewGame ? '100%' : 0)};
   transition: opacity 0.15s ease-in-out;
 `;
 
 const InvertedInnerButton = styled(InnerButton)`
-  box-shadow: 0 0 0 1px darkorange;
-  background: orange;
+  box-shadow: 0 0 0 1px var(--primaryShadow);
+  /* background: orange; */
+
+  background: var(--primaryBg);
 
   &:hover {
     background: var(--primaryBgHover);

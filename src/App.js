@@ -5,6 +5,7 @@ import Door from './components/Door';
 import Scoreboard from './components/Score';
 import styled from 'styled-components/macro';
 import { createDoors, getFinalDoor, getHostChoice } from './utils';
+import Modal from './components/Modal';
 
 export default class App extends Component {
   state = {
@@ -21,16 +22,19 @@ export default class App extends Component {
     count: 0,
     playerWins: null,
     reset: false,
+    showModal: document.cookie.length === 0,
 
     playerWillSwap: this.playerWillSwap.bind(this),
   };
 
   componentDidMount() {
+    const showModal = document.cookie.length === 0;
     const doors = createDoors();
     this.setState((state) => {
       return {
         ...state,
         doors: doors,
+        showModal: showModal,
       };
     });
   }
@@ -178,9 +182,10 @@ export default class App extends Component {
   }
 
   render() {
-    const { playerWins } = this.state;
+    const { playerWins, showModal } = this.state;
     return (
       <>
+        <Modal showModal={showModal} />
         <Scoreboard playerWins={playerWins} />
         <Group>{this.displayDoors()}</Group>
         <ButtonSection>{this.displayButtons()}</ButtonSection>
@@ -210,7 +215,8 @@ const PromptsSection = styled.section`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding-top: 16px;
+  padding-top: 32px;
+  padding-bottom: 64px;
 `;
 
 const Round2 = ({ state }) => {

@@ -32,8 +32,9 @@ export default function Scoreboard({ playerWins }) {
 }
 
 const Container = styled.section`
-  padding-top: 128px;
-
+  padding-top: clamp(0px, 17vh, 144px);
+  /* padding-top: clamp(128px, 10vh, 164px); */
+  /* padding-top: clamp(128px, 1vh, 1000px); */
 `;
 
 const Wrapper = styled.div`

@@ -125,8 +125,6 @@ const GreyBackground = styled.div`
   height: inherit;
 `;
 
-// const GreyBackground = styled
-
 const Door = styled.div`
   background: ${(p) => (p.isSelected ? ' hsl(30, 70%, 40%)' : '#654321')};
   position: absolute;

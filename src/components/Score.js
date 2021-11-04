@@ -7,7 +7,6 @@ import { useScore } from '../hooks/useScore';
  * When running the app through the node/express server, the values are counted normally.
  */
 
-
 export default function Scoreboard({ playerWins }) {
   const score = useScore(playerWins);
 
@@ -33,8 +32,6 @@ export default function Scoreboard({ playerWins }) {
 
 const Container = styled.section`
   padding-top: clamp(0px, 17vh, 144px);
-  /* padding-top: clamp(128px, 10vh, 164px); */
-  /* padding-top: clamp(128px, 1vh, 1000px); */
 `;
 
 const Wrapper = styled.div`
@@ -74,4 +71,3 @@ const Strong = styled.strong`
   color: #191919;
   border-bottom: 1px solid black;
 `;
-

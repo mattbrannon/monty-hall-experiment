@@ -6,9 +6,8 @@ export default function Modal({ showModal }) {
 
   const handleButtonClick = () => {
     document.cookie = Date.now().toString();
-    document.querySelector('html').style.setProperty('--overFlow', 'auto');
+    document.querySelector('html').style.setProperty('--overflow', 'auto');
     setIsOpen(false);
-
   };
 
   const style = {
@@ -45,9 +44,7 @@ const FixedWrapper = styled.div`
   width: 100%;
   height: 100%;
   z-index: var(--zIndex);
-  /* transform: scale(var(--scale)); */
   opacity: var(--opacity);
-
 
   transition: all 1s ease-out;
 
@@ -56,14 +53,12 @@ const FixedWrapper = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-
   position: relative;
   width: inherit;
   height: inherit;
 
   background: var(--modalWrapperBg);
   opacity: var(--opacity);
-
 
   margin: 0 auto;
   overflow: auto;
@@ -72,7 +67,6 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-
   position: absolute;
   top: 0;
   left: 0;
@@ -82,7 +76,6 @@ const ModalContent = styled.div`
 
   min-height: 400px;
   min-width: 400px;
-
 
   background: var(--modalContentBg);
   transform: translate(50%, 50%);
@@ -107,16 +100,14 @@ const Button = styled.button`
   font-weight: 800;
   text-shadow: 1px 1px 2px black;
 
-
   background: var(--primaryBg);
   color: white;
   width: fit-content;
 
-
-  letter-spacing:0.02em;
+  letter-spacing: 0.02em;
 
   border-radius: 6px;
-  border:none;
+  border: none;
 
   &:hover {
     cursor: pointer;

@@ -26,10 +26,9 @@ export function PlayAgainButton({ children, ...props }) {
   );
 }
 
-// outer_radius = inner_radius + gap_between_elements / 2;
 const Wrapper = styled.button`
   padding: 3px 3px;
-  border-radius: 10px; //calc((8px + 12px) / 2);
+  border-radius: 10px;
   border: none;
   min-width: 140px;
 
@@ -80,8 +79,6 @@ const InvertedWrapper = styled(Wrapper)`
 
 const InvertedInnerButton = styled(InnerButton)`
   box-shadow: 0 0 0 1px var(--primaryShadow);
-  /* background: orange; */
-
   background: var(--primaryBg);
 
   &:hover {

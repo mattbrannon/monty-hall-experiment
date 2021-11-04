@@ -6,29 +6,26 @@
   list-style-type: none;
 }
 
+html {
+  /* changes to auto when modal is dismissed. See Modal component for implementation */
+  --overflow: hidden;
+}
+
 :root {
   /* --primaryBg: hsl(39, 100%, 50%);
   --primaryBgHover: hsl(39, 92%, 56%);
   --primaryBgFocus: hsl(39, 96%, 63%); */
 
-  --overFlow: hidden;
-
-  --primaryBg: hsl(191, 50%, 34%);
-  --primaryBgHover: hsl(191, 44%, 40%);
-  --primaryBgFocus: hsl(191, 40%, 44%);
-  --primaryShadow: hsl(191, 36%, 30%);
-
-  --buttonBg: hsl(328, 100%, 54%);
-  --pinkShadow: hsl(328, 100%, 45%);
+  --tealBg: hsl(191, 50%, 34%);
+  --tealHover: hsl(191, 44%, 40%);
+  --tealFocus: hsl(191, 40%, 44%);
   --tealShadow: hsl(191, 36%, 30%);
-  --buttonShadow: var(--pinkShadow);
-  --buttonBgHover: hsl(328, 88%, 60%);
-  --buttonBgFocus: hsl(328, 85%, 62%);
-  --buttonBgActive: hsl(328, 78%, 60%);
 
-  --doorBg: hsl(30, 100%, 50%);
-
-  --k: hsl(30, 55%, 14%);
+  --pinkBg: hsl(328, 100%, 54%);
+  --pinkHover: hsl(328, 88%, 60%);
+  --pinkFocus: hsl(328, 85%, 62%);
+  --pinkShadow: hsl(328, 100%, 45%);
+  --pinkActive: hsl(328, 78%, 60%);
 }
 
 html,
@@ -45,16 +42,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* background: url('./assets/background.jpg'); */
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  overflow: var(--overFlow);
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  overflow: var(--overflow);
 }

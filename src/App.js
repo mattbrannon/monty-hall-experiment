@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import Button, { StartButton } from './components/Button';
+import Button, { InvertedButton } from './components/Button';
 import Door from './components/Door';
 import Scoreboard from './components/Score';
 import styled from 'styled-components/macro';
@@ -91,9 +91,12 @@ export default class App extends Component {
   displayButtons = () => {
     if (this.state.isNewGame) {
       return (
-        <StartButton onClick={this.startGame} isNewGame={this.state.isNewGame}>
+        <InvertedButton
+          onClick={this.startGame}
+          isNewGame={this.state.isNewGame}
+        >
           Start Game
-        </StartButton>
+        </InvertedButton>
       );
     } else if (this.state.round2) {
       return (
@@ -104,9 +107,9 @@ export default class App extends Component {
       );
     } else if (this.state.round3) {
       return (
-        <StartButton onClick={this.resetGame} isNewGame={this.state.round3}>
+        <InvertedButton onClick={this.resetGame} isNewGame={this.state.round3}>
           Play Again
-        </StartButton>
+        </InvertedButton>
       );
     }
   };

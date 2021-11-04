@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { ModalWrapper } from './Modal';
 
 export default function Button({ children, ...props }) {
   return (
@@ -10,29 +11,28 @@ export default function Button({ children, ...props }) {
   );
 }
 
-export function StartButton({ children, ...props }) {
+export function InvertedButton({ children, ...props }) {
   return (
     <InvertedWrapper {...props}>
-      <InvertedInnerButton {...props}>{children}</InvertedInnerButton>
-    </InvertedWrapper>
-  );
-}
-
-export function PlayAgainButton({ children, ...props }) {
-  return (
-    <InvertedWrapper {...props}>
-      <InvertedInnerButton>{children}</InvertedInnerButton>
+      <InnerButton>{children}</InnerButton>
     </InvertedWrapper>
   );
 }
 
 const Wrapper = styled.button`
+  --innerBg: var(--pinkBg);
+  --innerHover: var(--pinkHover);
+  --innerFocus: var(--pinkFocus);
+  --innerShadow: var(--pinkShadow);
+  --outerShadow: var(--pinkBg);
+  --outline: white;
+
   padding: 3px 3px;
   border-radius: 10px;
   border: none;
   min-width: 140px;
 
-  font-family: system-ui;
+  font-family: system-ui, sans-serif;
   color: white;
   background: transparent;
   outline: none;
@@ -40,11 +40,19 @@ const Wrapper = styled.button`
 
   &:focus,
   &:active {
-    box-shadow: 0 0 0 1px var(--buttonBg);
-    background: var(--primaryBgFocus);
+    box-shadow: 0 0 0 1px var(--outerShadow);
+    background: var(--outline);
   }
   &:hover {
     cursor: pointer;
+  }
+
+  ${ModalWrapper} & {
+    --innerBg: var(--tealBg);
+    --innerHover: var(--tealHover);
+    --innerFocus: var(--tealFocus);
+    --innerShadow: var(--tealShadow);
+    --outerShadow: var(--tealBg);
   }
 `;
 
@@ -55,37 +63,25 @@ const InnerButton = styled.span`
   font-weight: 700;
   border-radius: 8px;
   border: none;
-  box-shadow: 0 0 0 1px var(--pinkShadow);
-  background: var(--buttonBg);
+  box-shadow: 0 0 0 1px var(--innerShadow);
+  background: var(--innerBg);
 
   &:hover {
-    background: var(--buttonBgHover);
+    background: var(--innerHover);
   }
   &:focus,
   &:active {
-    background: var(--buttonBgFocus);
+    background: var(--innerFocus);
   }
 `;
 
 const InvertedWrapper = styled(Wrapper)`
-  &:focus,
-  &:active {
-    box-shadow: 0 0 0 1px var(--tealShadow);
-    background: var(--primaryBg);
-  }
+  --innerBg: var(--tealBg);
+  --innerHover: var(--tealHover);
+  --innerFocus: var(--tealFocus);
+  --innerShadow: var(--tealShadow);
+  --outerShadow: var(--tealBg);
+
   opacity: ${(p) => (p.isNewGame ? '100%' : 0)};
   transition: opacity 0.15s ease-in-out;
-`;
-
-const InvertedInnerButton = styled(InnerButton)`
-  box-shadow: 0 0 0 1px var(--primaryShadow);
-  background: var(--primaryBg);
-
-  &:hover {
-    background: var(--primaryBgHover);
-  }
-  &:focus,
-  &:active {
-    background: var(--primaryBgFocus);
-  }
 `;
